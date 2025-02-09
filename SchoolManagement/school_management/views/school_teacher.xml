@@ -1,0 +1,14 @@
+<odoo>
+
+    <data>
+
+        <record id="school_teacher_action" model="ir.actions.act_window">
+            <field name="name">Teacher</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">school.teacher</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+
+</odoo>
