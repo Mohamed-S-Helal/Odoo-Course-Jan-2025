@@ -10,6 +10,8 @@
             <menuitem id="school_menu" name="Schools" action="school_main_action"/>
             <menuitem id="school_class" name="Classes" action="school_class_action"/>
             <menuitem id="school_teacher" name="Teachers" action="school_teacher_action"/>
+            <menuitem id="school_student_menu" name="Students" action="school_student_action"/>
+            <menuitem id="school_complaint_menu" name="Complaints" action="school_complaint_action"/>
 
         </menuitem>
 

@@ -26,6 +26,8 @@ Long description of module's purpose
         'views/school_main.xml',
         'views/school_class.xml',
         'views/school_teacher.xml',
+        'views/school_complaint.xml',
+        'views/school_student.xml',
         'views/menus.xml',
     ],
     # only loaded in demonstration mode
