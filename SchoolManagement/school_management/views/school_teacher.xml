@@ -2,6 +2,72 @@
 
     <data>
 
+
+        <record id="teacher_view_form" model="ir.ui.view">
+            <field name="name">teacher_view_form</field>
+            <field name="model">school.teacher</field>
+            <field name="arch" type="xml">
+                <form string="teacher_form">
+                    <!--                <header>-->
+                    <!--                    -->
+                    <!--                </header>-->
+                    <sheet>
+
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="gender"/>
+                                <field name="birth_date"/>
+                                <field name="age"/>
+
+
+                            </group>
+
+
+                            <group>
+                            <field name="personal_photo" widget="image"/>
+
+
+                                <field name="school_id"/>
+                                <field name="teacher_stage"/>
+
+                            </group>
+
+
+                        </group>
+
+                        <group>
+
+                            <field name="classes_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="students_no"/>
+                                    <field name="school_id"/>
+
+                                </tree>
+                            </field>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="teacher_view_tree" model="ir.ui.view">
+            <field name="name">teacher_view_tree</field>
+            <field name="model">school.teacher</field>
+            <field name="arch" type="xml">
+                <tree string="teacher_tree">
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="school_id"/>
+                    <field name="classes_ids"/>
+                    <field name="age"/>
+                </tree>
+            </field>
+        </record>
+
+
         <record id="school_teacher_action" model="ir.actions.act_window">
             <field name="name">Teacher</field>
             <field name="type">ir.actions.act_window</field>
