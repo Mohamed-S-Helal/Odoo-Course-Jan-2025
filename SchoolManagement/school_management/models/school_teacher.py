@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 from dateutil.relativedelta import relativedelta
+from odoo import exceptions
 
 
 class SchoolTeacher(models.Model):
@@ -18,6 +19,17 @@ class SchoolTeacher(models.Model):
     school_id = fields.Many2one('school.main')
 
     teacher_stage = fields.Selection(related='school_id.stage', readonly=False, store=True)
+
+    @api.onchange('teacher_stage', 'experience_years')
+    def onchange_teacher_stage(self):
+        # validate teacher yrs of xp >= 5
+        print(self.teacher_stage, self.experience_years)
+        if self.teacher_stage == 'sec' and self.experience_years < 5:
+            raise exceptions.UserError('Teacher Experience must be >= 5')
+
+        # self.school_id.phone = '00000000'
+
+
 
     birth_date = fields.Date()
 
