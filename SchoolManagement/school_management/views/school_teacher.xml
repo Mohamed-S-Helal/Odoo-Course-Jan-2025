@@ -6,8 +6,9 @@
         <record id="teacher_view_form" model="ir.ui.view">
             <field name="name">teacher_view_form</field>
             <field name="model">school.teacher</field>
+            <field name="priority">1</field>
             <field name="arch" type="xml">
-                <form string="teacher_form">
+                <form string="teacher_form" edit="false" create="false" delete="false">
 
                     <sheet>
                         <field name="personal_photo" widget="image" class="oe_avatar"/>
@@ -24,7 +25,7 @@
                             </group>
 
 
-                            <group string="Technical Info">
+                            <group string="Technical Info" invisible="True">
                                 <field name="school_id"/>
                                 <field name="teacher_stage"/>
                                 <field name="graduation_year"/>
@@ -82,6 +83,70 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">school.teacher</field>
             <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="teacher_view_admin_form" model="ir.ui.view">
+            <field name="name">teacher_view_form</field>
+            <field name="model">school.teacher</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <form string="teacher_form">
+
+                    <sheet>
+                        <field name="personal_photo" widget="image" class="oe_avatar"/>
+                        <div class="oe_title mb24">
+                            <field name="name" placeholder="Name of the teacher"/>
+
+                        </div>
+
+                        <group>
+                            <group string="Personal Info">
+                                <field name="gender"/>
+                                <field name="birth_date"/>
+                                <field name="age"/>
+                            </group>
+
+
+                            <group string="Technical Info">
+                                <field name="school_id"/>
+                                <field name="teacher_stage"/>
+                                <field name="graduation_year"/>
+                                <field name="experience_years"/>
+                                <field name="experience_months"/>
+                                <field name="experience_days"/>
+
+                            </group>
+
+
+                        </group>
+
+                        <group>
+
+                            <field name="classes_ids" domain="[('school_id','=',school_id)]">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="students_no"/>
+                                    <field name="school_id"/>
+
+                                </tree>
+                            </field>
+
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="teacher_view_admin_action" model="ir.actions.act_window">
+            <field name="name">Teacher</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">school.teacher</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode':'tree', 'view_id':ref('teacher_view_tree')}),
+            (0, 0, {'view_mode':'form', 'view_id':ref('teacher_view_admin_form')})
+            ]"/>
         </record>
 
     </data>

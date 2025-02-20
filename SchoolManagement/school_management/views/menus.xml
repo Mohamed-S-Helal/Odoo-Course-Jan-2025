@@ -15,6 +15,8 @@
             <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
             <menuitem id="school_config" name="Configurations">
                 <menuitem id="school_student_admin_menu" name="Student Admin" action="school_student_admin_action"/>
+
+                <menuitem id="school_teacher_admin_menu" name="Teacher Admin"  action="teacher_view_admin_action"/>
             </menuitem>
 
         </menuitem>
