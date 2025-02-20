@@ -7,6 +7,8 @@ class SchoolTeacher(models.Model):
     _name = 'school.teacher'
     _description = 'This is a teacher model'
 
+    number = fields.Integer()
+
     personal_photo = fields.Image(max_width=50)
 
     name = fields.Char()
@@ -28,8 +30,6 @@ class SchoolTeacher(models.Model):
             raise exceptions.UserError('Teacher Experience must be >= 5')
 
         # self.school_id.phone = '00000000'
-
-
 
     birth_date = fields.Date()
 
@@ -70,7 +70,8 @@ class SchoolTeacher(models.Model):
     def _compute_graduation_year(self):
         for record in self:
             today = fields.Date.today()
-            delta = relativedelta(years=record.experience_years, months=record.experience_months, days=record.experience_days)
+            delta = relativedelta(years=record.experience_years, months=record.experience_months,
+                                  days=record.experience_days)
             record.graduation_year = today - delta
 
     classes_ids = fields.Many2many(comodel_name='school.class',
@@ -78,3 +79,6 @@ class SchoolTeacher(models.Model):
                                    column1='teacher_id',
                                    column2='class_id',
                                    domain="['|', '|', ('school_id', '=', school_id), ('students_no','<', 10), ('teachers_ids','=',False)]")
+
+    def clear_classes(self):
+        self.classes_ids = [(5, 0, 0)]

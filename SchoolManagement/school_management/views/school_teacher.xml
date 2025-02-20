@@ -8,14 +8,11 @@
             <field name="model">school.teacher</field>
             <field name="arch" type="xml">
                 <form string="teacher_form">
-                    <!--                <header>-->
-                    <!--                    -->
-                    <!--                </header>-->
+
                     <sheet>
                         <field name="personal_photo" widget="image" class="oe_avatar"/>
                         <div class="oe_title mb24">
-                            <label for="name"/>
-                            <field name="name"/>
+                            <field name="name" placeholder="Name of the teacher"/>
 
                         </div>
 
@@ -42,7 +39,7 @@
 
                         <group>
 
-                            <field name="classes_ids">
+                            <field name="classes_ids" domain="[('school_id','=',school_id)]">
                                 <tree>
                                     <field name="name"/>
                                     <field name="students_no"/>
@@ -61,13 +58,20 @@
             <field name="name">teacher_view_tree</field>
             <field name="model">school.teacher</field>
             <field name="arch" type="xml">
-                <tree string="teacher_tree">
+                <tree decoration-danger="school_id==False" decoration-bf="school_id==False" limit="3">
+                    <control>
+                        <create string="New Teacher"/>
+                    </control>
+
+                    <field name="number" widget="handle"/>
                     <field name="name"/>
                     <field name="gender"/>
                     <field name="school_id"/>
                     <field name="classes_ids"/>
                     <field name="age"/>
                     <field name="experience_years"/>
+                    <button type="object" name="clear_classes" invisible="False" string="Clear All Classes" class="btn-primary"/>
+
                 </tree>
             </field>
         </record>

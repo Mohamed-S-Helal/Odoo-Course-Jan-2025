@@ -1,11 +1,104 @@
 <odoo>
 
 
+    <record id="student_view_form" model="ir.ui.view">
+        <field name="name">student_view_form</field>
+        <field name="model">school.student</field>
+        <field name="priority">3</field>
+        <field name="arch" type="xml">
+            <form string="student_form">
+
+                <sheet>
+
+                    <group string="Student Info">
+                        <group>
+                            <field name="name"/>
+                            <field name="summary" widget="CopyClipboardURL"/>
+
+
+                        </group>
+
+                        <group>
+
+                            <field name="stage_name" widget="badge"/>
+                            <field name="national_id" widget="CopyClipboardButton"/>
+                            <field name="email" widget="email"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="id_image" widget="image_url"/>
+
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
     <record id="school_student_action" model="ir.actions.act_window">
         <field name="name">Student</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">school.student</field>
         <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="student_view_tree" model="ir.ui.view">
+        <field name="name">student_view_tree</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <tree string="student_tree">
+                <field name="name"/>
+                <field name="stage"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="student_admin_view_form" model="ir.ui.view">
+        <field name="name">student_view_form</field>
+        <field name="model">school.student</field>
+        <field name="priority">99</field>
+        <field name="arch" type="xml">
+            <form string="student_form">
+
+                <sheet>
+
+                    <group string="Student Info">
+                        <group>
+                            <field name="name"/>
+                            <field name="summary"/>
+
+
+                        </group>
+
+                        <group>
+                            <field name="stage" readonly="False"/>
+                            <field name="national_id"/>
+                            <field name="email" widget="email"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="id_image"/>
+
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="school_student_admin_action" model="ir.actions.act_window">
+        <field name="name">Student Admin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">school.student</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[
+                (5, 0, 0),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('student_admin_view_form')}),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('student_view_tree')})
+            ]"
+        />
     </record>
 
 </odoo>
