@@ -5,7 +5,11 @@ from odoo import exceptions
 
 class SchoolTeacher(models.Model):
     _name = 'school.teacher'
+    _inherit = ['mail.thread.main.attachment', 'mail.activity.mixin']
     _description = 'This is a teacher model'
+
+    def test(self):
+        print('Hello')
 
     number = fields.Integer()
 
@@ -18,7 +22,7 @@ class SchoolTeacher(models.Model):
         ('f', 'Female'),
     ])
 
-    school_id = fields.Many2one('school.main')
+    school_id = fields.Many2one('school.main', tracking=1)
 
     teacher_stage = fields.Selection(related='school_id.stage', readonly=False, store=True)
 
@@ -31,7 +35,7 @@ class SchoolTeacher(models.Model):
 
         # self.school_id.phone = '00000000'
 
-    birth_date = fields.Date()
+    birth_date = fields.Date(tracking=1)
 
     age = fields.Integer(compute='_compute_age', store=True)
 

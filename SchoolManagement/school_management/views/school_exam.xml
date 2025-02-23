@@ -1,0 +1,38 @@
+<odoo>
+
+
+    <record id="exam_view_form" model="ir.ui.view">
+        <field name="name">exam_view_form</field>
+        <field name="model">school.exam</field>
+        <field name="arch" type="xml">
+            <form string="exam_form">
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="description"/>
+                        <field name="grade"/>
+                        <field name="full_grade"/>
+                        <field name="exam_duration" widget="float_time"/>
+                        <!--                                         <field name="grade_percent" widget="percentpie"/>-->
+                        <field name="grade_percent" widget="percentage"/>
+
+<!--                                        <field name="date" widget="remaining_days"/>-->
+                        <field name="date_start" widget="daterange" options="{'end_date_field': 'date_end'}"/>
+                        <field name="date_end" invisible="True"/>
+                        <field name="exam_scan_paper" />
+                        <field name="exam_scan_answer" widget="many2many_binary"/>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="school_exam_action" model="ir.actions.act_window">
+        <field name="name">Exams</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">school.exam</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

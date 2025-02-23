@@ -15,6 +15,12 @@
                             <field name="name"/>
                             <field name="summary" widget="CopyClipboardURL"/>
 
+                            <field name="student_grade_info"/>
+
+                            <field name="success_ratio" widget="percentpie"/>
+
+                            <field name="create_date" widget="date"/>
+
 
                         </group>
 
@@ -29,6 +35,42 @@
                         </group>
 
                     </group>
+                    <notebook>
+                        <page string="Exams">
+                            <group>
+                                <field name="exams_ids" nolabel="1" colspan="2">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name" width="20px"/>
+                                        <field name="description" width="150px" optional="hide"/>
+                                        <field name="grade"/>
+                                        <field name="full_grade"/>
+                                        <field name="exam_duration" widget="float_time"/>
+                                        <!--                                         <field name="grade_percent" widget="percentpie"/>-->
+                                        <field name="grade_percent" widget="percentage"/>
+
+<!--                                        <field name="date" widget="remaining_days"/>-->
+                                        <field name="date_start" widget="daterange" options="{'end_date_field': 'date_end'}"/>
+                                        <field name="date_end" column_invisible="True"/>
+                                        <field name="exam_scan_paper" />
+
+                                    </tree>
+                                </field>
+                            </group>
+
+                        </page>
+
+                        <page string="Hr Info">
+
+                            <group>
+
+                                <field name="currency_id"/>
+                                <field name="fees"/>
+                                <field name="paid_fees" widget="boolean_toggle"/>
+                            </group>
+
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

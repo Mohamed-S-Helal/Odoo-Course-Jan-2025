@@ -18,7 +18,7 @@ Long description of module's purpose
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'mail'],
 
     # always loaded
     'data': [
@@ -28,6 +28,7 @@ Long description of module's purpose
         'views/school_teacher.xml',
         'views/school_complaint.xml',
         'views/school_student.xml',
+        'views/school_exam.xml',
         'views/menus.xml',
     ],
     # only loaded in demonstration mode

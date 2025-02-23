@@ -4,4 +4,5 @@ access_school_class,school_class_all_users_access,model_school_class,,1,1,1,1
 access_school_teacher,school_teacher_all_users_access,model_school_teacher,,1,1,1,1
 access_school_complaint,school_complaint_all_users_access,model_school_complaint,,1,1,1,1
 access_school_student,school_student_all_users_access,model_school_student,,1,1,1,1
+access_school_exam,school_exam,model_school_exam,,1,1,1,1
 
