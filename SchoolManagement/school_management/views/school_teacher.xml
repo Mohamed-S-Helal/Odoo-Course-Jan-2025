@@ -47,7 +47,7 @@
 <!--                                </tree>-->
 <!--                            </field>-->
 
-                            <field name="classes_ids" domain="[('school_id','=',school_id)]" widget="many2many_checkboxes"/>
+                            <field name="classes_ids" widget="many2many_checkboxes"/>
 
                         </group>
 

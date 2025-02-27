@@ -42,61 +42,61 @@ class SchoolClass(models.Model):
     #     for rec_id in self.teachers_ids.ids:
     #         self.teachers_ids = [fields.Command.unlink(rec_id)]
     #
-    # def write(self, vals):
-    #     # ex: vals = {'name': 'class2', students_no: 5}
-    #     # if 'name' in vals:
-    #     # if vals['name']:
-    #
-    #     # if vals.get('name', 'empty') != 'empty':
-    #     #     raise exceptions.UserError('You are not allowed to change the class name')
-    #     # print(self.name)
-    #     # res = super().write(vals)
-    #     # print(self.name)
-    #     #
-    #     #
-    #     # if vals.get('name', 'empty') != 'empty':
-    #     #
-    #     #     raise exceptions.UserError('You are not allowed to change the class name')
-    #     #
-    #     # return res
-    #     return super().write(vals)
-    #     res = True
-    #     for record in self:
-    #
-    #         # vals['students_no'] = int(record.students_no) + 1
-    #
-    #         if vals.get('school_id'):
-    #             teachers_ids_commands = []
-    #             # for t in self.teachers_ids:
-    #             #     teachers_ids_commands.append(fields.Command.unlink(t.id))
-    #             # vals['teachers_ids'] = teachers_ids_commands
-    #
-    #             vals['teachers_ids'] = [fields.Command.delete(t.id) for t in self.teachers_ids]
-    #
-    #         res = super().write(vals)
-    #
-    #         if not record.name.startswith('Class'):
-    #             raise UserError('Class must start with (Class)')
-    #
-    #     return res
+
+    def write(self, vals):
+        # ex: vals = {'name': 'class2', students_no: 5}
+        # if 'name' in vals:
+        # if vals['name']:
+
+        if vals.get('name', 'empty') != 'empty':
+            raise UserError('You are not allowed to change the class name')
+        print(self.name)
+        res = super().write(vals)
+        print(self.name)
+
+        if vals.get('name', 'empty') != 'empty':
+
+            raise UserError('You are not allowed to change the class name')
+
+        return res
+        return super().write(vals)
+        res = True
+        for record in self:
+
+            # vals['students_no'] = int(record.students_no) + 1
+
+            if vals.get('school_id'):
+                teachers_ids_commands = []
+                for t in self.teachers_ids:
+                    teachers_ids_commands.append(fields.Command.unlink(t.id))
+                vals['teachers_ids'] = teachers_ids_commands
+
+                vals['teachers_ids'] = [fields.Command.delete(t.id) for t in self.teachers_ids]
+
+            res = super().write(vals)
+
+            if not record.name.startswith('Class'):
+                raise UserError('Class must start with (Class)')
+
+        return res
 
     # @api.model
     # def search(self):
 
-    # @api.model
-    # def create(self, vals):
-    #     res = super().create(vals)
-    #
-    #     if not res.name.startswith('Class'):
-    #         raise UserError('Class must start with (Class)')
-    #
-    #     return res
+    @api.model
+    def create(self, vals):
+        res = super().create(vals)
 
-    # def unlink(self):
-    #     for record in self:
-    #         if record.students_no > 0:
-    #             raise UserError('Class is not empty')
-    #     return super().unlink()
+        if not res.name.startswith('Class'):
+            raise UserError('Class must start with (Class)')
+
+        return res
+
+    def unlink(self):
+        for record in self:
+            if record.students_no > 0:
+                raise UserError('Class is not empty')
+        return super().unlink()
 
     # @api.ondelete(at_uninstall=True)
     # def test(self):

@@ -81,8 +81,7 @@ class SchoolTeacher(models.Model):
     classes_ids = fields.Many2many(comodel_name='school.class',
                                    relation='teacher_class_rel',
                                    column1='teacher_id',
-                                   column2='class_id',
-                                   domain="['|', '|', ('school_id', '=', school_id), ('students_no','<', 10), ('teachers_ids','=',False)]")
+                                   column2='class_id',)
 
     def clear_classes(self):
         self.classes_ids = [(5, 0, 0)]

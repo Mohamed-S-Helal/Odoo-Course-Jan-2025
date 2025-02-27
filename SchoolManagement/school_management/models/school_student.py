@@ -33,6 +33,7 @@ class SchoolStudent(models.Model):
     summary = fields.Text()
 
     stage = fields.Selection(selection=stage, required=False, default='kg')
+    class_id = fields.Many2one('school.class')
 
     currency_id = fields.Many2one('res.currency')
 
@@ -75,7 +76,7 @@ class SchoolStudent(models.Model):
             ##########
 
             # grades = rec.exams_ids.mapped('grade')
-            # full_grades = rec.exams_ids.mapped('full_grade')
+            full_grades = rec.exams_ids.mapped('full_grade')
             #
             # rec.success_ratio = sum(grades)/sum(full_grades) if sum(full_grades) else 0
 
@@ -88,4 +89,4 @@ class SchoolStudent(models.Model):
 
             #####
 
-            # rec.success_ratio = sum(rec.exams_ids.filtered(lambda e: e.full_grade > 0).mapped(lambda e: e.grade/e.full_grade))
+            rec.success_ratio = sum(rec.exams_ids.filtered(lambda e: e.full_grade > 0).mapped(lambda e: e.grade/e.full_grade))
