@@ -1,6 +1,28 @@
 <odoo>
     <data>
 
+        <record id="school_view_search" model="ir.ui.view">
+        <field name="name">school_view_search</field>
+        <field name="model">school.main</field>
+        <field name="arch" type="xml">
+            <search string="Search Schools">
+                <field name="name"/>
+                <field name="location"/>
+                <field name="phone"/>
+                <field name="success_rate"/>
+                <field name="next_year_start_date"/>
+                <field name="classes_no"/>
+                <field name="stage"/>
+                <field name="school_day_begin_time"/>
+                <filter string="Name" name="name_filter" domain="[('name', 'ilike', self)]"/>
+                <filter string="Location" name="location_filter" domain="[('location', 'ilike', self)]"/>
+                <searchpanel>
+                    <field name="stage" string="Stage" icon="fa-filter" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
         <record id="school_view_form" model="ir.ui.view">
             <field name="name">school_view_form</field>
             <field name="model">school.main</field>

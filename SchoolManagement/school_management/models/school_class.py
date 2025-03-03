@@ -123,3 +123,5 @@ class SchoolClass(models.Model):
 
     teachers_ids = fields.Many2many(comodel_name='school.teacher', relation='teacher_class_rel', column2='teacher_id',
                                     column1='class_id')
+
+    students_ids = fields.One2many('school.student', 'class_id')

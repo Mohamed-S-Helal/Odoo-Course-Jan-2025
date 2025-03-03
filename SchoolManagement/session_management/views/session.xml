@@ -1,0 +1,117 @@
+<odoo>
+
+
+    <record id="session_view_tree" model="ir.ui.view">
+        <field name="name">session_view_tree</field>
+        <field name="model">school.session</field>
+        <field name="arch" type="xml">
+            <tree string="session_tree" create="1" multi_edit="1">
+                <field name="order_handle" widget="handle"/>
+                <field name="name" widget="badge"/>
+                <field name="school_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="class_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="teacher_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="content" optional="hide"/>
+                <field name="date"/>
+                <field name="start_time" widget="float_time"/>
+                <field name="end_time" widget="float_time"/>
+                <field name="status" widget="badge"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="session_view_form" model="ir.ui.view">
+        <field name="name">session_view_form</field>
+        <field name="model">school.session</field>
+        <field name="arch" type="xml">
+            <form string="session_form">
+                <header>
+                    <button type="object" string="Start Session" name="status_running" class="btn-primary"/>
+                    <button type="object" string="Cancel Session" name="status_cancel" class="btn-danger"/>
+                    <field name="status" widget="statusbar" statusbar_visible="p,r,d" options="{'clickable': True}"/>
+                </header>
+                <sheet>
+                    <field name="kanban_state" widget="state_selection"/>
+
+                    <group>
+                        <group>
+
+                            <field name="name" widget="badge"/>
+                            <field name="school_id" options="{'no_create': True, 'no_open': True}"/>
+
+                            <field name="class_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="start_time" widget="float_time"/>
+                            <field name="end_time" widget="float_time"/>
+                            <field name="duration" widget="float_time"/>
+                            <field name="rating" widget="priority"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Content">
+                            <field name="content"/>
+                        </page>
+                        <page string="All Students">
+                            <field name="students_ids"/>
+                        </page>
+                        <page string="Attendance">
+                            <field name="attended_students_ids" widget="many2many_checkboxes"/>
+                        </page>
+                        <page string="Absence">
+                            <field name="absent_students_ids" widget="many2many_tags"/>
+
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="session_search_view" model="ir.ui.view">
+        <field name="name">session_search_view</field>
+        <field name="model">school.session</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="school_id"/>
+                <field name="class_id"/>
+                <field name="teacher_id"/>
+                <field name="content"/>
+                <field name="duration"/>
+                <field name="students_ids"/>
+                <field name="absent_students_ids"/>
+
+                <field name="start_time" invisible="1"/>
+                <filter string="Start Time After" name='start_time' domain="[('start_time','>=',1.5)]"/>
+                <filter string="No Absence" name='no_absence' domain="[('absent_students_ids','=',False)]"/>
+
+                <filter string="Group By Class" name='group_by_class' context="{'group_by': 'class_id'}"/>
+                
+                <searchpanel>
+                    <field name="status" string="Status" enable_counters="1"/>
+                    <field name="class_id" string="Class" enable_counters="1"/>
+
+                    <field name="students_ids" string="Students" select="multi"/>
+                </searchpanel>
+
+            </search>
+        </field>
+    </record>
+
+
+    <record id="sessions_menu_action" model="ir.actions.act_window">
+        <field name="name">Sessions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">school.session</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

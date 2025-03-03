@@ -15,6 +15,14 @@ class SchoolExam(models.Model):
 
     sequence = fields.Integer()
 
+    priority = fields.Boolean()
+
+    state = fields.Selection([
+        ('normal', 'Grey'),
+        ('done', 'Green'),
+        ('blocked', 'Red')
+    ])
+
     description = fields.Text()
 
     date_start = fields.Datetime()
@@ -29,5 +37,4 @@ class SchoolExam(models.Model):
     @api.depends('full_grade', 'grade')
     def _compute_grade_percent(self):
         for rec in self:
-            rec.grade_percent = rec.grade/rec.full_grade if rec.full_grade else 0
-
+            rec.grade_percent = rec.grade / rec.full_grade if rec.full_grade else 0

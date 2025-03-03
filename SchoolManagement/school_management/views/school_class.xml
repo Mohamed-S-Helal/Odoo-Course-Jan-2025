@@ -5,7 +5,7 @@
             <field name="name">class_view_tree</field>
             <field name="model">school.class</field>
             <field name="arch" type="xml">
-                <tree string="class_tree" editable="top">
+                <tree string="class_tree">
                     <field name="name"/>
                     <field name="school_id" options="{'no_open':True}"/>
                 </tree>

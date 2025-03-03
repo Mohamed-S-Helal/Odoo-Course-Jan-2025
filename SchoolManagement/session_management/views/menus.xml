@@ -1,0 +1,6 @@
+<odoo>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="sessions_menu" name="Sessions" parent="school_management.school_menu_root" action="sessions_menu_action" sequence="3"/>
+
+</odoo>

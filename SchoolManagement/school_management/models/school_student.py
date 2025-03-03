@@ -89,4 +89,4 @@ class SchoolStudent(models.Model):
 
             #####
 
-            rec.success_ratio = sum(rec.exams_ids.filtered(lambda e: e.full_grade > 0).mapped(lambda e: e.grade/e.full_grade))
+            rec.success_ratio = sum(rec.exams_ids.filtered(lambda e: e.full_grade > 0).mapped(lambda e: e.grade/e.full_grade if e.full_grade else 0))
