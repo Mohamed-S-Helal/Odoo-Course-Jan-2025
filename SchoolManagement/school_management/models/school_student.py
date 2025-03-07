@@ -15,6 +15,8 @@ class SchoolStudent(models.Model):
 
     name = fields.Char(required=True)
 
+    user_id = fields.Many2one('res.users')
+
     student_grade_info = fields.Text(compute='_compute_student_grade_info')
 
     def _compute_student_grade_info(self):

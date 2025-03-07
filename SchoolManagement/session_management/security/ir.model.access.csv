@@ -1,2 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_school_session,school_session_all,model_school_session,,1,1,1,1
+access_session_state,session_state,model_session_state,,1,1,1,1
+access_cancel_reason,cancel_reason,model_cancel_reason,,1,1,1,1
+access_school_rules,access_school_rules,model_school_rules,,1,1,1,1
+

@@ -4,10 +4,58 @@ from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
 
+class ResCompany(models.Model):
+    _inherit = 'res.company'
+
+    rule1 = fields.Char()
+    rule2 = fields.Char()
+    rule3 = fields.Char()
+
+
+class GeneralRules(models.TransientModel):
+    _name = 'school.rules'
+
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.company, readonly=True)
+    rule1 = fields.Char(related='company_id.rule1', readonly=False)
+    rule2 = fields.Char(related='company_id.rule2', readonly=False)
+    rule3 = fields.Char(related='company_id.rule3', readonly=False)
+
+
+class CancelReason(models.TransientModel):
+    _name = 'cancel.reason'
+
+    reason = fields.Char(required=True)
+
+    # def add_reason(self):
+    #     active_model = self.env.context.get('active_model')
+    #     active_id = self.env.context.get('active_id')
+    #     active_session = self.env[active_model].browse(active_id)
+    #     active_session.cancel_reason = self.reason
+
+
+    # anothe way
+
+    active_session = fields.Many2one('school.session', invisible=True)
+
+    def add_reason(self):
+        self.active_session.cancel_reason = self.reason
+
+
+class SessionState(models.Model):
+    _name = 'session.state'
+    _order = 'sequence'
+
+    name = fields.Char(required=True)
+    sequence = fields.Integer()
+    fold = fields.Boolean()
+    cancel = fields.Boolean()
+
+
 class SchoolSession(models.Model):
     _name = 'school.session'
-    _inherit = ['mail.activity.mixin', 'mail.thread.main.attachment']
+    _inherit = ['mail.activity.mixin', 'mail.thread.main.attachment', 'mail.tracking.duration.mixin']
     _description = 'Session Management'
+    _track_duration_field = 'state_id'
 
     def _get_default_code(self):
         # objects -> names
@@ -21,6 +69,8 @@ class SchoolSession(models.Model):
 
     order_handle = fields.Integer()
 
+    cancel_reason = fields.Char()
+
     name = fields.Char(string="Code", required=True, default=_get_default_code)
     school_id = fields.Many2one('school.main')
     class_id = fields.Many2one('school.class', domain="[('school_id', '=', school_id)]")
@@ -30,19 +80,20 @@ class SchoolSession(models.Model):
     attended_students_ids = fields.Many2many('school.student', relation='session_student_attended_rel',
                                              domain="[('class_id', '=', class_id)]")
     absent_students_ids = fields.Many2many('school.student', compute='_compute_absent_students_ids',
-                                           store=False, search='_search_absent_students_ids')
+                                           store=True, search='_search_absent_students_ids')
 
     def _search_absent_students_ids(self, operator, value):
         recs = self.search([]).filtered(lambda s: value in s.absent_students_ids.mapped('name'))
 
         return [('id', 'in', recs.ids)]
 
+    @api.depends('students_ids', 'attended_students_ids')
     def _compute_absent_students_ids(self):
         for session in self:
             recs = session.students_ids - session.attended_students_ids
             session.absent_students_ids = [(6, 0, recs.ids)]
 
-    content = fields.Text()
+    content = fields.Text(tracking=True)
     date = fields.Date()
     start_time = fields.Float(store=True)
     end_time = fields.Float()
@@ -67,6 +118,9 @@ class SchoolSession(models.Model):
         ('c', 'Cancelled')
     ], default='p')
 
+    state_id = fields.Many2one('session.state', tracking=True)
+    cancel = fields.Boolean(related='state_id.cancel')
+
     rating = fields.Selection(selection=[
         ('0', '0'),
         ('1', '1'),
@@ -80,10 +134,14 @@ class SchoolSession(models.Model):
                                     default='normal', copy=False)
 
     def status_running(self):
-        self.status = 'r'
+        # self.status = 'r'
+        self.state_id = self.env['session.state'].search([('sequence', '=', 2)], limit=1)
 
     def status_cancel(self):
-        self.status = 'c'
+        # self.status = 'c'
+        self.state_id = self.env['session.state'].search([('cancel', '=', True)], limit=1)
+
+        # return action
 
     @api.constrains('name')
     def unique_name(self):

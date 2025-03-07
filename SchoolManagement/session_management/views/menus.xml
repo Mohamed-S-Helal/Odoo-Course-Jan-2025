@@ -3,4 +3,11 @@
     <!-- This Menu Item must have a parent and an action -->
     <menuitem id="sessions_menu" name="Sessions" parent="school_management.school_menu_root" action="sessions_menu_action" sequence="3"/>
 
+    <menuitem id="session_state_menu" name="Session State" parent="school_management.school_config" action="sessions_state_menu_action" sequence="3"/>
+
+
+    <menuitem id="rules_menu" name="General Rules" parent="school_management.school_config" action="general_rules_action" sequence="3"/>
+
+
+
 </odoo>
