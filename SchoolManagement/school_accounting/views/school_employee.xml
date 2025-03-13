@@ -1,0 +1,60 @@
+<odoo>
+
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="school_employee_form" model="ir.ui.view">
+        <field name="name">school_employee_form</field>
+        <field name="model">school.employee</field>
+        <field name="inherit_id" ref="school_management.view_contact_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+
+<!--            before-->
+<!--            after-->
+<!--            inside-->
+<!--            replace-->
+<!--            attributes-->
+<!--            move-->
+            
+            
+
+
+            <xpath expr="//field[@name='national_id']" position="after">
+
+                <xpath expr="//field[@name='phone']" position="move"/>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+
+    <record id="school_employee_action" model="ir.actions.act_window">
+        <field name="name">School Employee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">school.employee</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="school_employee_action_menu" name="School Employee" parent="school_management.school_menu_root"
+              action="school_employee_action" sequence="6"/>
+
+
+
+    <record id="school_management.school_exam_menu" model="ir.ui.menu">
+        <field name="name">Class Exams</field>
+        <field name="sequence">7</field>
+    </record>
+
+
+    <record id="school_management.school_contact_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+</odoo>

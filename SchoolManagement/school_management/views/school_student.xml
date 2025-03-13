@@ -12,6 +12,7 @@
 
                     <group string="Student Info">
                         <group>
+                            <field name="contact_id" invisible="not contact_id" readonly="True"/>
                             <field name="name"/>
                             <field name="user_id"/>
                             <field name="summary" widget="CopyClipboardURL"/>

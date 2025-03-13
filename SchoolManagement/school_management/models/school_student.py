@@ -11,9 +11,16 @@ stage = [
 
 class SchoolStudent(models.Model):
     _name = 'school.student'
-    _description = 'This is a student model'
 
-    name = fields.Char(required=True)
+    _inherits = {'school.contact': 'contact_id'}
+
+    contact_id = fields.Many2one('school.contact')
+
+    name = fields.Char()
+
+    birth_date = fields.Date(tracking=1)
+
+    age = fields.Integer(compute='_compute_age', store=True)
 
     user_id = fields.Many2one('res.users')
 
@@ -27,9 +34,6 @@ class SchoolStudent(models.Model):
 
             # '\n'join(['python: 112', 'java: 110', 'english: 80'])
 
-    national_id = fields.Char()
-    email = fields.Char()
-    phone = fields.Char()
     id_image = fields.Char()
 
     summary = fields.Text()
@@ -55,15 +59,15 @@ class SchoolStudent(models.Model):
 
     exams_ids = fields.One2many(
         comodel_name='school.exam',
-        inverse_name='student_id',)
+        inverse_name='student_id', )
 
     success_ratio = fields.Integer(compute='_compute_success_ratio')
 
     def _compute_success_ratio(self):
         for rec in self:
             # sum grades
-                # sum = 0
-                # loop exams -> add grade + sum
+            # sum = 0
+            # loop exams -> add grade + sum
             # sum full_grades
             sum_grades = 0
             sum_full_grades = 0
@@ -72,8 +76,7 @@ class SchoolStudent(models.Model):
                 sum_grades += exam.grade
                 sum_full_grades += exam.full_grade
 
-            rec.success_ratio = 100* sum_grades/sum_full_grades if sum_full_grades else 0
-
+            rec.success_ratio = 100 * sum_grades / sum_full_grades if sum_full_grades else 0
 
             ##########
 
@@ -82,13 +85,11 @@ class SchoolStudent(models.Model):
             #
             # rec.success_ratio = sum(grades)/sum(full_grades) if sum(full_grades) else 0
 
-
             #######
 
             # rec.success_ratio = sum(rec.exams_ids.mapped(lambda e: e.grade/e.full_grade if e.full_grade else 0))
 
-
-
             #####
 
-            rec.success_ratio = sum(rec.exams_ids.filtered(lambda e: e.full_grade > 0).mapped(lambda e: e.grade/e.full_grade if e.full_grade else 0))
+            rec.success_ratio = sum(rec.exams_ids.filtered(lambda e: e.full_grade > 0).mapped(
+                lambda e: e.grade / e.full_grade if e.full_grade else 0))

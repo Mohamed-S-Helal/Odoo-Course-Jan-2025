@@ -1,0 +1,31 @@
+<odoo>
+
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="teacher_view_form_extend" model="ir.ui.view">
+        <field name="inherit_id" ref="school_management.teacher_view_form"/>
+        <field name="mode">extension</field>
+        <field name="name">teacher_view_form_extend</field>
+        <field name="model">school.teacher</field>
+        <field name="arch" type="xml">
+
+<!--            <xpath expr="/form/sheet/notebook" position="inside">-->
+            <xpath expr="//notebook" position="inside">
+
+                <page string="Contract Details">
+                    <group>
+                        <field name="bank_account"/>
+                        <field name="basic_salary"/>
+                        <field name="hour_rate"/>
+                        <field name="housing_allowance"/>
+                    </group>
+                </page>
+
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+</odoo>

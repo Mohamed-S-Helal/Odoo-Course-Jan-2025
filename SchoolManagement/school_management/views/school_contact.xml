@@ -1,0 +1,45 @@
+<odoo>
+
+
+    <record id="view_contact_form" model="ir.ui.view">
+        <field name="name">contact.form.view</field>
+        <field name="model">school.contact</field>
+        <field name="arch" type="xml">
+            <form string="Student Form">
+                <sheet>
+                    <group>
+                        <group id="info_group">
+                            <field name="name"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                        </group>
+                        <group>
+                            <field name="school_id"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Personal Info">
+                            <group>
+                                <field name="national_id"/>
+                                <field name="gender"/>
+                                <field name="gender2"/>
+                                <field name="birth_date"/>
+                                <field name="age" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="school_contact_action" model="ir.actions.act_window">
+        <field name="name">School Contact</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">school.contact</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

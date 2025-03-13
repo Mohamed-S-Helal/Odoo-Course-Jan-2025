@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "School Management",
+    'name': "School Accounting",
 
     'summary': "Short (1 phrase/line) summary of the module's purpose",
 
@@ -9,7 +9,6 @@ Long description of module's purpose
     """,
 
     'author': "My Company",
-    'website': "https://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -18,28 +17,21 @@ Long description of module's purpose
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail'],
+    'depends': ['school_management', 'sale'],
 
     # always loaded
     'data': [
+        'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/school_main.xml',
-        'views/school_class.xml',
-        'views/school_teacher.xml',
-        'views/school_complaint.xml',
-        'views/school_student.xml',
-        'views/school_exam.xml',
-        'views/school_contact.xml',
-
-        'views/menus.xml',
+        'views/teacher_extend.xml',
+        'views/school_employee.xml',
+        'views/templates.xml',
+        'views/product_template.xml',
+        'views/sale_order.xml',
     ],
     # only loaded in demonstration mode
-    # 'demo': [
-    #     'demo/demo.xml',
-    # ],
-
-    'application': True,
-    'auto_install': True
-
+    'demo': [
+        'demo/demo.xml',
+    ],
 }
 

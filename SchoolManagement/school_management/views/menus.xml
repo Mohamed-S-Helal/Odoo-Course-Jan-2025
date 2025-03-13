@@ -4,21 +4,23 @@
 
 
         <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
-        <menuitem id="school_menu_root" name="School Management" sequence="0" >
+        <menuitem id="school_menu_root" name="School Management" sequence="0">
             <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
 
             <menuitem id="school_menu" name="Schools" action="school_main_action" sequence="1"/>
-            <menuitem id="school_class" name="Classes" action="school_class_action"  sequence="2"/>
-            <menuitem id="school_teacher" name="Teachers" action="school_teacher_action"  sequence="4"/>
-            <menuitem id="school_student_menu" name="Students" action="school_student_action"  sequence="5"/>
-            <menuitem id="school_exam_menu" name="Exams" action="school_exam_action"  sequence="6"/>
+            <menuitem id="school_class" name="Classes" action="school_class_action" sequence="2"/>
+            <menuitem id="school_teacher" name="Teachers" action="school_teacher_action" sequence="4"/>
+            <menuitem id="school_student_menu" name="Students" action="school_student_action" sequence="5"/>
+            <menuitem id="school_contact_menu" name="Contacts" action="school_contact_action" sequence="5"/>
 
-            <menuitem id="school_complaint_menu" name="Complaints" action="school_complaint_action"  sequence="7"/>
+            <menuitem id="school_exam_menu" name="Exams" action="school_exam_action" sequence="6"/>
+
+            <menuitem id="school_complaint_menu" name="Complaints" action="school_complaint_action" sequence="7"/>
             <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
             <menuitem id="school_config" name="Configurations" sequence="999">
                 <menuitem id="school_student_admin_menu" name="Student Admin" action="school_student_admin_action"/>
 
-                <menuitem id="school_teacher_admin_menu" name="Teacher Admin"  action="teacher_view_admin_action"/>
+                <menuitem id="school_teacher_admin_menu" name="Teacher Admin" action="teacher_view_admin_action"/>
             </menuitem>
 
         </menuitem>

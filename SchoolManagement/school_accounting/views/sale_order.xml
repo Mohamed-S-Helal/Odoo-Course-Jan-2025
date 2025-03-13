@@ -1,0 +1,67 @@
+<odoo>
+
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="view_order_form_inherit" model="ir.ui.view">
+        <field name="name">view_order_form_inherit</field>
+        <field name="model">sale.order</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='sale_info']" position="inside">
+                <field name="school_id"/>
+                <field name="is_fees"/>
+            </xpath>
+
+
+
+            <xpath expr="//page[@name='order_lines']" position="attributes">
+                <attribute name="string">Fees Lines</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_template_id']" position="attributes">
+                <attribute name="string">Fees Type</attribute>
+                <attribute name="domain">[('is_fees','=',True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='order_line']/tree/control" position="replace"/>
+
+            <xpath expr="//page[@name='optional_products']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='sales_person']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
+             <xpath expr="//group[@name='sale_shipping']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
+            <xpath expr="//group[@name='sale_reporting']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="fees_order_action" model="ir.actions.act_window">
+        <field name="name">Fees Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_fees','=',True)]</field>
+        <field name="context">{'default_is_fees': True}</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode':'tree', 'view_id':ref('sale.view_quotation_tree_with_onboarding')}),
+            (0, 0, {'view_mode':'form', 'view_id':ref('view_order_form_inherit')})
+        ]"/>
+    </record>
+
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="fees_orders" name="Fees Orders" action="fees_order_action" parent="school_management.school_config" sequence="5"/>
+
+</odoo>

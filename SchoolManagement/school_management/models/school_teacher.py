@@ -5,7 +5,7 @@ from odoo import exceptions
 
 class SchoolTeacher(models.Model):
     _name = 'school.teacher'
-    _inherit = ['mail.thread.main.attachment', 'mail.activity.mixin']
+    _inherit = ['mail.thread.main.attachment', 'mail.activity.mixin', 'school.contact']
     _description = 'This is a teacher model'
 
     def test(self):
@@ -15,15 +15,6 @@ class SchoolTeacher(models.Model):
 
     personal_photo = fields.Image(max_width=50)
 
-    name = fields.Char()
-
-    gender = fields.Selection(selection=[
-        ('m', 'Male'),
-        ('f', 'Female'),
-    ])
-
-    school_id = fields.Many2one('school.main', tracking=1)
-
     teacher_stage = fields.Selection(related='school_id.stage', readonly=False, store=True)
 
     @api.onchange('teacher_stage', 'experience_years')
@@ -32,22 +23,6 @@ class SchoolTeacher(models.Model):
         print(self.teacher_stage, self.experience_years)
         if self.teacher_stage == 'sec' and self.experience_years < 5:
             raise exceptions.UserError('Teacher Experience must be >= 5')
-
-        # self.school_id.phone = '00000000'
-
-    birth_date = fields.Date(tracking=1)
-
-    age = fields.Integer(compute='_compute_age', store=True)
-
-    @api.depends('birth_date')
-    def _compute_age(self):
-        # self -> recordset
-        for record in self:
-            if record.birth_date:
-                today = fields.Date.today()
-                record.age = relativedelta(today, record.birth_date).years
-            else:
-                record.age = 25
 
     graduation_year = fields.Date()
 
