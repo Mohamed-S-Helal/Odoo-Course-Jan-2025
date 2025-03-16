@@ -45,6 +45,6 @@
     </record>
 
     <!-- This Menu Item Must have a parent -->
-    <menuitem id="fees_types" name="Fees Types" action="fees_types_action" parent="school_management.school_config" sequence="5"/>
+    <menuitem id="fees_types" groups="school_management.group_school_accountant" name="Fees Types" action="fees_types_action" parent="school_management.school_config" sequence="5"/>
 
 </odoo>

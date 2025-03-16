@@ -14,7 +14,8 @@
                         <group>
                             <field name="contact_id" invisible="not contact_id" readonly="True"/>
                             <field name="name"/>
-                            <field name="user_id"/>
+                            <field name="user_id" groups="school_management.group_school_student,!school_management.group_school_teacher"/>
+                            <field name="user_id" groups="school_management.group_school_manager"/>
                             <field name="summary" widget="CopyClipboardURL"/>
 
                             <field name="student_grade_info"/>
@@ -52,10 +53,11 @@
                                         <!--                                         <field name="grade_percent" widget="percentpie"/>-->
                                         <field name="grade_percent" widget="percentage"/>
 
-<!--                                        <field name="date" widget="remaining_days"/>-->
-                                        <field name="date_start" widget="daterange" options="{'end_date_field': 'date_end'}"/>
+                                        <!--                                        <field name="date" widget="remaining_days"/>-->
+                                        <field name="date_start" widget="daterange"
+                                               options="{'end_date_field': 'date_end'}"/>
                                         <field name="date_end" column_invisible="True"/>
-                                        <field name="exam_scan_paper" />
+                                        <field name="exam_scan_paper"/>
 
                                     </tree>
                                 </field>
@@ -103,32 +105,38 @@
     <record id="student_admin_view_form" model="ir.ui.view">
         <field name="name">student_view_form</field>
         <field name="model">school.student</field>
-        <field name="priority">99</field>
+        <field name="priority">1</field>
+        <field name="inherit_id" ref="student_view_form"/>
+        <field name="mode">primary</field>
+<!--        <field name="groups_id" eval="[(6, 0, [ref('group_school_manager')])]"/>-->
         <field name="arch" type="xml">
-            <form string="student_form">
-
-                <sheet>
-
-                    <group string="Student Info">
-                        <group>
-                            <field name="name"/>
-                            <field name="summary"/>
 
 
-                        </group>
+            <xpath expr="//sheet/group[last()]" position="after">
 
-                        <group>
-                            <field name="stage" readonly="False"/>
-                            <field name="national_id"/>
-                            <field name="email" widget="email"/>
-                            <field name="phone" widget="phone"/>
-                            <field name="id_image"/>
+                <group string="Admin"  groups="school_management.group_school_manager">
+                    <group>
+                        <field name="name"/>
+                        <field name="summary"/>
 
-                        </group>
 
                     </group>
-                </sheet>
-            </form>
+
+                    <group>
+                        <field name="stage" readonly="False"/>
+                        <field name="national_id"/>
+                        <field name="email" widget="email"/>
+                        <field name="phone" widget="phone"/>
+                        <field name="id_image"/>
+
+                    </group>
+
+                </group>
+
+
+            </xpath>
+
+
         </field>
     </record>
 

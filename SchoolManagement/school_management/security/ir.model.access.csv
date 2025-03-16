@@ -1,7 +1,14 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_school_main,school_main_all_users_access,model_school_main,,1,1,1,1
-access_school_class,school_class_all_users_access,model_school_class,,1,1,1,1
-access_school_teacher,school_teacher_all_users_access,model_school_teacher,,1,1,1,1
+access_school_read_only,school_read_access,model_school_main,group_school_student,1,0,0,0
+access_school_main,school_main_all_users_access,model_school_main,group_school_manager,1,1,1,1
+
+access_school_class_readonly,access_school_class_readonly,model_school_class,group_school_student,1,0,0,0
+access_school_class_readwrite,access_school_class_readwrite,model_school_class,group_school_teacher,1,1,0,0
+access_school_class_full_access,access_school_class_full_access,model_school_class,group_school_manager,1,1,1,1
+
+access_school_teacher_read,school_teacher_all_users_access,model_school_teacher,group_school_teacher,1,0,0,0
+access_school_teacher_all,school_teacher_all_users_access,model_school_teacher,group_school_manager,1,1,1,1
+
 access_school_complaint,school_complaint_all_users_access,model_school_complaint,,1,1,1,1
 access_school_student,school_student_all_users_access,model_school_student,,1,1,1,1
 access_school_exam,school_exam,model_school_exam,,1,1,1,1

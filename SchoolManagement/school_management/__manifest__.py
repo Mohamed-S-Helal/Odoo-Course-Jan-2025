@@ -22,7 +22,9 @@ Long description of module's purpose
 
     # always loaded
     'data': [
+        'security/groups.xml',
         'security/ir.model.access.csv',
+        'security/rules.xml',
         'views/school_main.xml',
         'views/school_class.xml',
         'views/school_teacher.xml',
@@ -30,8 +32,8 @@ Long description of module's purpose
         'views/school_student.xml',
         'views/school_exam.xml',
         'views/school_contact.xml',
-
         'views/menus.xml',
+
     ],
     # only loaded in demonstration mode
     # 'demo': [
@@ -42,4 +44,3 @@ Long description of module's purpose
     'auto_install': True
 
 }
-

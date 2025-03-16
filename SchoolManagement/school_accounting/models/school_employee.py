@@ -11,3 +11,5 @@ class SchoolEmployee(models.Model):
 
     job_title = fields.Char()
     manager_id = fields.Many2one('school.employee')
+
+    user_id = fields.Many2one('res.users')

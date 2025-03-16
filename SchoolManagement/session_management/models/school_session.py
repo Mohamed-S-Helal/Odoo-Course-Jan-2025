@@ -38,7 +38,11 @@ class CancelReason(models.TransientModel):
     active_session = fields.Many2one('school.session', invisible=True)
 
     def add_reason(self):
+        # teacher
         self.active_session.cancel_reason = self.reason
+        self.active_session.status_cancel()
+
+
 
 
 class SessionState(models.Model):
@@ -142,6 +146,20 @@ class SchoolSession(models.Model):
         self.state_id = self.env['session.state'].search([('cancel', '=', True)], limit=1)
 
         # return action
+
+    def action_cancel(self):
+        # manager
+        if self.env.user.has_group('school_management.group_school_manager'):
+            self.status_cancel()
+        elif self.env.user.has_group('school_management.group_school_teacher'):
+            return {
+                'name': 'Cancel Reason',
+                'type': 'ir.actions.act_window',
+                'res_model': 'cancel.reason',
+                'view_mode': 'form',
+                'target': 'new',
+                'context':"{'default_active_session': active_id}"
+            }
 
     @api.constrains('name')
     def unique_name(self):

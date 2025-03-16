@@ -21,7 +21,6 @@ Long description of module's purpose
 
     # always loaded
     'data': [
-        'security/groups.xml',
         'security/ir.model.access.csv',
         'views/teacher_extend.xml',
         'views/school_employee.xml',

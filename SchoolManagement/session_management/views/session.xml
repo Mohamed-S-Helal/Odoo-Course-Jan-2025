@@ -57,7 +57,10 @@
                 <header>
                     <button type="object" string="Start Session" name="status_running" class="btn-primary"/>
 <!--                    <button type="object" string="Cancel Session" name="status_cancel" class="btn-danger"/>-->
-                    <button type="action" string="Cancel Session" name="%(cancel_wiz_action)d" class="btn-danger"/>
+<!--                    <button type="action" string="Cancel Session" name="%(cancel_wiz_action)d" class="btn-danger"/>-->
+
+                    <button type="object" string="Cancel Session" name="action_cancel" class="btn-danger"/>
+
 <!--                    <field name="status" widget="statusbar" statusbar_visible="p,r,d" options="{'clickable': True}"/>-->
                     <field name="state_id" widget="statusbar_duration" options="{'clickable': True, 'fold_field': 'fold'}"/>
                 </header>

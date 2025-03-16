@@ -22,6 +22,7 @@
             <xpath expr="//field[@name='national_id']" position="after">
 
                 <xpath expr="//field[@name='phone']" position="move"/>
+                <field name="user_id"/>
 
             </xpath>
 
@@ -41,7 +42,7 @@
 
     <!-- This Menu Item must have a parent and an action -->
     <menuitem id="school_employee_action_menu" name="School Employee" parent="school_management.school_menu_root"
-              action="school_employee_action" sequence="6"/>
+              action="school_employee_action" sequence="6" groups="school_management.group_school_accountant"/>
 
 
 
