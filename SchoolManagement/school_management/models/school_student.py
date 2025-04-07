@@ -14,6 +14,21 @@ class SchoolStudent(models.Model):
 
     _inherits = {'school.contact': 'contact_id'}
 
+    def move_stage_action(self):
+        for rec in self:
+            rec.stage = 'prim'
+
+        action = {
+            'name': 'Schools',
+            'type': 'ir.actions.act_window',
+            'res_model': 'school.main',
+            'view_mode': 'tree,form',
+            'target': 'current',
+        }
+
+        return action
+
+
     contact_id = fields.Many2one('school.contact')
 
     name = fields.Char()

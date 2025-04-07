@@ -139,6 +139,10 @@ class SchoolSession(models.Model):
 
     def status_running(self):
         # self.status = 'r'
+
+        if not self.env.user.has_group('school_management.group_school_teacher'):
+            raise ValidationError('You can not run this action')
+
         self.state_id = self.env['session.state'].search([('sequence', '=', 2)], limit=1)
 
     def status_cancel(self):
@@ -160,6 +164,12 @@ class SchoolSession(models.Model):
                 'target': 'new',
                 'context':"{'default_active_session': active_id}"
             }
+
+    @api.model
+    def close_sessions(self):
+        open_sessions = self.search([('kanban_state', '=', 'normal')])
+        for s in open_sessions:
+            s.kanban_state = 'done'
 
     @api.constrains('name')
     def unique_name(self):

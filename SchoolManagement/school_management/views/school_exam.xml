@@ -1,6 +1,53 @@
 <odoo>
 
 
+    <template id="exam_template">
+
+        <t t-call="web.basic_layout">
+
+            <div class="header">
+                <img t-att-src="image_data_uri(docs.student_id.school_id.logo)" style="height: 50px"/>
+            </div>
+
+            <div class="page">
+
+                <h1>
+                    <span t-field="docs.name"/>
+                </h1>
+                <h3>
+                    <span t-field="docs.description"/>
+
+                </h3>
+
+
+            </div>
+
+
+            <div class="footer">
+                test footer
+            </div>
+
+
+        </t>
+
+    </template>
+
+
+    <record id="exams_report" model="ir.actions.report">
+        <field name="name">Exam PDF</field>
+        <field name="model">school.exam</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">school_management.exam_template</field>
+        <field name="print_report_name">object.name + ' Exam'</field>
+        <field name="binding_model_id" ref="model_school_exam"/>
+
+
+
+<!--        <field name="paperformat_id" ref="check_management.paperformat_a6_report1"/>-->
+    </record>
+
+
+
     <record id="exam_view_form" model="ir.ui.view">
         <field name="name">exam_view_form</field>
         <field name="model">school.exam</field>
@@ -19,6 +66,7 @@
 <!--                        </h1>-->
 <!--                    </div>-->
                     <group>
+                        <field name="student_id"/>
                         <field name="name" />
                         <field name="description"/>
                         <field name="grade"/>

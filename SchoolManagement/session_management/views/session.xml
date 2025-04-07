@@ -1,6 +1,18 @@
 <odoo>
 
 
+    <record id="action_close_sessions" model="ir.cron">
+        <field name="name">Close Session</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall" eval="DateTime.now().replace(hour=22, minute=0)"/>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_school_session"/>
+        <field name="state">code</field>
+        <field name="code">model.close_sessions()</field>
+    </record>
+
+
     <record id="session_view_tree" model="ir.ui.view">
         <field name="name">session_view_tree</field>
         <field name="model">school.session</field>
@@ -46,6 +58,7 @@
         <field name="view_mode">form</field>
         <field name="context">{'default_active_session': active_id}</field>
         <field name="target">new</field>
+        <field name="binding_model_id" ref="model_school_session"/>
     </record>
 
 
@@ -57,9 +70,9 @@
                 <header>
                     <button type="object" string="Start Session" name="status_running" class="btn-primary"/>
 <!--                    <button type="object" string="Cancel Session" name="status_cancel" class="btn-danger"/>-->
-<!--                    <button type="action" string="Cancel Session" name="%(cancel_wiz_action)d" class="btn-danger"/>-->
+                    <button type="action" string="Cancel Session" name="%(cancel_wiz_action)d" class="btn-danger"/>
 
-                    <button type="object" string="Cancel Session" name="action_cancel" class="btn-danger"/>
+<!--                    <button type="object" string="Cancel Session" name="action_cancel" class="btn-danger"/>-->
 
 <!--                    <field name="status" widget="statusbar" statusbar_visible="p,r,d" options="{'clickable': True}"/>-->
                     <field name="state_id" widget="statusbar_duration" options="{'clickable': True, 'fold_field': 'fold'}"/>

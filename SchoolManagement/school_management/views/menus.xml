@@ -7,7 +7,7 @@
         <menuitem id="school_menu_root" groups="group_school_student" name="School Management" sequence="0">
             <!-- This Menu Item will appear in the Upper bar, That's why It needs NO parent or action -->
 
-            <menuitem id="school_menu" name="Schools" groups="group_school_teacher" action="school_main_action" sequence="1"/>
+            <menuitem id="school_menu" name="Schools" groups="group_school_student" action="school_main_action" sequence="1"/>
             <menuitem id="school_class" name="Classes" groups="group_school_student" action="school_class_action" sequence="2"/>
             <menuitem id="school_teacher" name="Teachers" groups="group_school_teacher"  action="school_teacher_action" sequence="4"/>
             <menuitem id="school_student_menu" name="Students" groups="group_school_student"  action="school_student_action" sequence="5"/>

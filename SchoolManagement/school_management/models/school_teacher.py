@@ -8,6 +8,8 @@ class SchoolTeacher(models.Model):
     _inherit = ['mail.thread.main.attachment', 'mail.activity.mixin', 'school.contact']
     _description = 'This is a teacher model'
 
+    active = fields.Boolean(default=True)
+
     user_id = fields.Many2one('res.users')
 
     company_id = fields.Many2one('res.company')

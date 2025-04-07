@@ -8,6 +8,8 @@ class School(models.Model):
 
     _log_access = True
 
+    logo = fields.Image()
+
     name = fields.Char(string='School Name', required=True, index=True, size=None, trim=True)
 
     location = fields.Text(string='Address Location')

@@ -2,7 +2,6 @@
 
 
     <record id="teacher_own_record" model="ir.rule">
-
         <field name="name">Teacher Own Record</field>
         <field name="model_id" ref="model_school_teacher"/>
         <field name="groups" eval="[(6, 0, [(ref('group_school_teacher'))])]"/>
@@ -11,8 +10,6 @@
         <field name="perm_write" eval="0"/>
         <field name="perm_create" eval="0"/>
         <field name="perm_unlink" eval="0"/>
-
-
     </record>
 
 
@@ -33,6 +30,17 @@
         <field name="domain_force">[('company_id','=',company_id)]</field>
 
     </record>
+
+
+    <record id="teacher_active" model="ir.rule">
+
+        <field name="name">Teachers in my company</field>
+        <field name="model_id" ref="model_school_teacher"/>
+        <field name="domain_force">[('active','=',True)]</field>
+
+    </record>
+
+
 
 
 
